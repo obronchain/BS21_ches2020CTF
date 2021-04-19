@@ -1,6 +1,6 @@
 from env_parse import *
-from scaffe.modeling import LDAClassifier
-import scaffe
+from scalib.modeling import LDAClassifier
+import scalib
 from tqdm import tqdm
 import pickle
 
@@ -53,7 +53,7 @@ for b,labels_batch in enumerate(split):
             m = models[v]
             
             # Equivalent of: m["l"][index:index+ntraces_p,:] = traces[:,m["poi"]]
-            scaffe._scaffe_ext.partial_cp(traces,m["poi"],m["l"][index:index+ntraces_p])
+            scalib._scalib_ext.partial_cp(traces,m["poi"],m["l"][index:index+ntraces_p])
             
             m["x"][index:index+ntraces_p] = labels[v]
         del traces

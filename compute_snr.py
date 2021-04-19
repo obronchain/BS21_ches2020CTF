@@ -1,5 +1,5 @@
 from env_parse import *
-from scaffe.metrics import SNR
+from scalib.metrics import SNR
 from tqdm import tqdm
 import pickle
 

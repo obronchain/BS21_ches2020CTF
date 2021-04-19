@@ -1,6 +1,6 @@
 from env_parse import *
-from scaffe.attacks import SASCAGraph
-from scaffe.postprocessing import rank_accuracy
+from scalib.attacks import SASCAGraph
+from scalib.postprocessing import rank_accuracy
 import numpy as np
 import glob
 import pickle
