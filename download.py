@@ -15,6 +15,7 @@ attack_datasets = {
 ### End of user parameters
 
 URL_BASE = "https://anonymous@enigma.elen.ucl.ac.be/webdav/ctf-spook/ctf_traces1"
+URL_MODEL = "perso.uclouvain.be/olivier.bronchain/models.zip"
 sizes = {"3": [1.3, 1], "4": [1.6, 1], "6": [3.1, 4], "8": [4.1, 8]}
 
 tsize = 0
@@ -78,15 +79,42 @@ def gen_profile_dataset():
             fname = f"rkey_sw{d}_10000_{i}.npz"
             files.append(f"{dir_server}/{fname}")
 
+def gen_models():
+    global tsize
+    ret = input(
+        f"About to download 0.5-GB for models. "
+        + "Continue ? [y/n]: "
+    )
+    if ret != "y":
+        print("Skipping")
+        return False
+    
+    tsize += .5
+    return True
+
+def download_models():
+    if os.path.exists("models.zip"):
+        print("models.zip exists, skipping")
+    else:
+        os.system(f"wget {URL_MODEL}")
+
+    os.system("unzip models.zip")
+    for d in [3,4,6,8]:
+        if not os.path.exists(f"data_{d}"): os.makedirs(f"data_{d}/")
+        os.system(f"cp models/data_{d}/*.pkl ./data_{d}/")
 
 if __name__ == "__main__":
     print("Confirm what you want to download. You can edit to top of this file.\n")
     gen_profile_dataset()
     print("\n")
     gen_attack_dataset()
+    print("\n")
+    dl_models = gen_models()
 
     print("\n")
     ret = input(f"Start download a total of {tsize:.2f}-GB. Continue ? [y/n]: ")
+    if dl_models:
+        download_models()
     if ret != "y":
         exit()
     for f in files:
