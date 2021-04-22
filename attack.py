@@ -4,7 +4,7 @@ from scalib.postprocessing import rank_accuracy
 import numpy as np
 import glob
 import pickle
-
+from tqdm import tqdm
 # Encoding graph description
 enc_desc = "NC 256\n"
 for var in variables:
@@ -129,9 +129,12 @@ def run_attack(attack_dir, ntraces_a, models):
             enc_graph = SASCAGraph(enc_desc, n=bs)
 
             # predict_proba for all models and insert the result in enc_graph
-            for k, m in models.items():
+            for k, m in tqdm(models.items()):
+                t = traces[start : start +bs, m["poi"]]
+                print("t loaded")
+                prs =  m["lda"].predict_proba(t)
                 enc_graph.set_init_distribution(
-                    k, m["lda"].predict_proba(traces[start : start + bs, m["poi"]])
+                    k,prs
                 )
 
             # run belief propagation
