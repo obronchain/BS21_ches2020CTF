@@ -69,7 +69,7 @@ the distribution package manager (e.g., apt-get, pacman, etc ...).
 
 Build instructions
 ------------------
-Yon can also build `SCALib <https://github.com/simple-crypto/SCALib>`_. To do so, you will first need to `install the latest Rust tool chain <https://rustup.rs/>`_. Then you can follow the instruction from `this page <https://github.com/simple-crypto/SCALib/blob/main/DEVELOP.rst>`_. Namely, you can simple run 
+Yon can also build `SCALib <https://github.com/simple-crypto/SCALib>`_. To do so, you will first need to `install the latest Rust tool chain <https://rustup.rs/>`_ (1.51 atm). Then you can follow the instruction from `this page <https://github.com/simple-crypto/SCALib/blob/main/DEVELOP.rst>`_. Namely, you can simple run 
 
 .. code-block::
 
