@@ -26,7 +26,7 @@ can be done independently (profiling is the more costly).
 System requirement
 ==================
 In order to run the project, at least a Linux systems is required with `Python
->=3.6`, `curl` and `gcc` installed (default on most of modern distributions).
+>=3.6`, `curl`, `unzip` and `gcc` installed (default on most of modern distributions).
 Since some steps of the computation can be expensive, all the outputted results
 are made available online and can be downloaded with `download.py`. 
 
@@ -55,14 +55,33 @@ A few parameters can be tuned by the user in `env_parse.py`. We list and describ
 
 Install
 =======
+
+Pip install
+-----------
 All the Python dependencies are available on `PyPi` and can be installed with.
 
 .. code-block:: 
 
    pip install scalib matplotlib
 
-Both `curl` and `gcc` must be installed on the system. This can be done with
+Both `curl`, `unzip` and `gcc` must be installed on the system. This can be done with
 the distribution package manager (e.g., apt-get, pacman, etc ...).
+
+Build instructions
+------------------
+Yon can also build `SCALib <https://github.com/simple-crypto/SCALib>`_. To do so, you will first need to `install the latest Rust tool chain <https://rustup.rs/>`_. Then you can follow the instruction from `this page <https://github.com/simple-crypto/SCALib/blob/main/DEVELOP.rst>`_. Namely, you can simple run 
+
+.. code-block::
+
+   pip wheel . 
+
+in the root directory of SCALib repository to build the source code. Then run 
+
+.. code-block::
+   
+   pip install XXX.whl --force-reinstall
+   
+to install the package.
 
 Download Datasets
 =================
