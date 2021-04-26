@@ -87,8 +87,8 @@ Download Datasets
 =================
 The script `download.py` is an interactive scripts to select what dataset must
 be downloaded.  The user can select to download profile and/or attack dataset
-for each of the implementations.  The following example downloads both datasets
-for the 3-shares implementation. 
+for each of the implementations. It also allows to download the pre-computed models and attack results.
+The following example downloads both datasets for the 3-shares implementation. 
 
 .. code-block::
 
@@ -115,8 +115,8 @@ for the 3-shares implementation.
 
     ....
 
-**note**: The script does not download entire attack datasets by only enough
-traces to recover the full key.
+**note**: The script does not download entire attack datasets but only enough
+traces to recover the full keys. The full profiling datasets are downloaded. 
 
 	
 Profiling
