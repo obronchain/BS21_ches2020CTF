@@ -82,7 +82,7 @@ def gen_profile_dataset():
 def gen_models():
     global tsize
     ret = input(
-        f"About to download 0.5-GB for models. "
+        f"About to download 0.5-GB for pre-computed results (models and attacks). "
         + "Continue ? [y/n]: "
     )
     if ret != "y":

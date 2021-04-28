@@ -87,8 +87,9 @@ Download Datasets
 =================
 The script `download.py` is an interactive scripts to select what dataset must
 be downloaded.  The user can select to download profile and/or attack dataset
-for each of the implementations. It also allows to download the pre-computed models and attack results.
-The following example downloads both datasets for the 3-shares implementation. 
+for each of the implementations.  The following example downloads both datasets
+for the 3-shares implementation. It also allows to download all the precomputed
+models and attacks results. 
 
 .. code-block::
 
@@ -138,7 +139,7 @@ The profiling is done by running sequentially the three following scripts where
 `compute_snr.py` computes the SNR for each of the variables. `modeling.py`
 builds the templates.
 
-In order display the results of profiling, the user can start the interactive
+In order display the results of profiling (SNR and PoIs), the user can start the interactive
 script `report_profiling.py`. The user will be asked the variables and the byte index
 (0,1,2 or 3) to display.
 
