@@ -179,4 +179,4 @@ Bronchain at `olivier.bronchain@uclouvain.be
 
 License
 =======
-All the files in this project (expected for `spook_sw/`) are distributed under AGPLv3. Please see `<COPYING>`_ for additional information.  
+All the files in this project (expected for `spook_sw/`) are distributed under AGPLv3. Please see `<LICENSE>`_ for additional information.  
