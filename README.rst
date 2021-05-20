@@ -3,7 +3,7 @@ BS20 CHES2020 CTF Attack
 
 This repository contains the attack by `Bronchain and Standaert` against the
 CHES2020 CTF software targets. It leverages `Soft Analytical Side-Channel
-Attacks` and is using its implementation in `SCALib`. It allows to break all
+Attacks` and is using its implementation in `SCALib` (version 0.1.1). It allows to break all
 the software implementations protected with 3,4,6 and 8 shares. 
 
 This is an artifact of the research paper `Breaking Masked Implementations with
@@ -62,7 +62,7 @@ All the Python dependencies are available on `PyPi` and can be installed with.
 
 .. code-block:: 
 
-   pip install scalib matplotlib
+   pip install scalib==0.1.1 matplotlib
 
 Both `curl`, `unzip` and `gcc` must be installed on the system. This can be done with
 the distribution package manager (e.g., apt-get, pacman, etc ...).
