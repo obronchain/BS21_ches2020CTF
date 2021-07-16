@@ -4,6 +4,7 @@ from scalib.postprocessing import rank_accuracy
 import numpy as np
 import glob
 import pickle
+
 # Encoding graph description
 enc_desc = "NC 256\n"
 for var in variables:

@@ -9,7 +9,7 @@ npoi = 3600
 # Number of dimensions in linear subspace
 p = 14
 # target memory usage (GB), yet it may consumes a bit more.
-memory_limit = 80
+memory_limit = 200
 # datasets location (use download.py to download them)
 dataset_dir = "./traces/"
 ######################### END OF USER PARAMETERS

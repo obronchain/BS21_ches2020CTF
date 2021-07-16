@@ -43,11 +43,15 @@ not forced to download all the dataset. See the next section for more details.
 
 Parameters
 ==========
-A few parameters can be tuned by the user in `env_parse.py`. We list and describe them below:
+A few parameters can be tuned by the user in `env_parse.py`. We list and
+describe them below:
 
-- `memory_limit`: The target RAM (in GB) usage. Because Python has garbage collection, this limit can be (slightly) exceeded.  
+- `memory_limit`: The target RAM (in GB) usage. Because Python has garbage
+  collection, this limit can be (slightly) exceeded.  
 
-- `dataset_dir`: Is the directory containing the datasets. The downloaded traces will be placed there. If you already have the traces available on your system, make `dataset_dir` pointing to their location.
+- `dataset_dir`: Is the directory containing the datasets. The downloaded
+  traces will be placed there. If you already have the traces available on your
+  system, make `dataset_dir` pointing to their location.
 
 - `npoi`: The number of dimensions in the traces taken to build the templates.
 
@@ -56,32 +60,16 @@ A few parameters can be tuned by the user in `env_parse.py`. We list and describ
 Install
 =======
 
-Pip install
------------
-All the Python dependencies are available on `PyPi` and can be installed with.
+All the Python dependencies are available on `PyPi` and can be installed with:
 
 .. code-block:: 
 
-   pip install scalib==0.1.1 matplotlib
+   pip install -r requirements.txt
 
-Both `curl`, `unzip` and `gcc` must be installed on the system. This can be done with
-the distribution package manager (e.g., apt-get, pacman, etc ...).
+We note that the user can install these dependencies in a `virtualenv`.  Both
+`curl`, `unzip` and `gcc` must be installed on the system. This can be done
+with the distribution package manager (e.g., apt-get, pacman, etc ...). 
 
-Build instructions
-------------------
-Yon can also build `SCALib <https://github.com/simple-crypto/SCALib>`_. To do so, you will first need to `install the latest Rust tool chain <https://rustup.rs/>`_ (1.51 atm). Then you can follow the instruction from `this page <https://github.com/simple-crypto/SCALib/blob/main/DEVELOP.rst>`_. Namely, you can simple run 
-
-.. code-block::
-
-   pip wheel . 
-
-in the root directory of SCALib repository to build the source code. Then run 
-
-.. code-block::
-   
-   pip install XXX.whl --force-reinstall
-   
-to install the package.
 
 Download Datasets
 =================
@@ -123,7 +111,7 @@ traces to recover the full keys. The full profiling datasets are downloaded.
 Profiling
 =========
 
-**note**: All the commands for profiling and attacks are in `all.sh`.
+**note**: All the commands to reproduce all the profiling and attacks are in `all.sh`.
 
 The profiling is done by running sequentially the three following scripts where
 `<D>` is the number of shares in the implementation to profile.
@@ -139,9 +127,9 @@ The profiling is done by running sequentially the three following scripts where
 `compute_snr.py` computes the SNR for each of the variables. `modeling.py`
 builds the templates.
 
-In order display the results of profiling (SNR and PoIs), the user can start the interactive
-script `report_profiling.py`. The user will be asked the variables and the byte index
-(0,1,2 or 3) to display.
+In order display the results of profiling (SNR and PoIs), the user can start
+the interactive script `report_profiling.py`. The user will be asked the
+variables and the byte index (0,1,2 or 3) to display.
 
 .. code-block::
    
@@ -179,4 +167,5 @@ Bronchain at `olivier.bronchain@uclouvain.be
 
 License
 =======
-All the files in this project (expected for `spook_sw/`) are distributed under AGPLv3. Please see `<LICENSE>`_ for additional information.  
+All the files in this project (expected for `spook_sw/`) are distributed under
+AGPLv3. Please see `<LICENSE>`_ for additional information.  
