@@ -1,5 +1,5 @@
 from env_parse import *
-from scalib.modeling import LDAClassifier
+from scalib.modeling import MultiLDA 
 import scalib
 from tqdm import tqdm
 import pickle
@@ -31,6 +31,13 @@ for b, labels_batch in enumerate(split):
     # Number of variables in this round
     np_it = len(labels_batch)
 
+    # Init the MultiLDA for the labels to profile
+    pois = [ models[v]["poi"] for v in labels_batch]
+    mlda = MultiLDA(ncs=[256]*np_it,
+                    ps = [p]*np_it,
+                    pois = pois,
+                    gemm_mode = 0)
+    
     files_labels = tqdm(files_labels, desc="Load batch %d/%d" % (b, len(split)))
     for (traces, labels, index) in zip(
         files_traces, files_labels, range(0, ntraces_p * nfiles_profile, ntraces_p)
@@ -39,35 +46,16 @@ for b, labels_batch in enumerate(split):
         # load traces and labels
         traces = np.load(traces, allow_pickle=True)["traces"]
         labels = pickle.load(open(labels, "rb"))
-
-        # Init labels and data array on the first iteration
-        if index == 0:
-            for v in labels_batch:
-                m = models[v]
-                m["l"] = np.zeros(
-                    (ntraces_p * nfiles_profile, len(m["poi"])), dtype=np.int16
-                )
-                m["x"] = np.zeros((ntraces_p * nfiles_profile), dtype=np.uint16)
-
-        # fill data array
-        for v in labels_batch:
-            m = models[v]
-
-            # Equivalent of: m["l"][index:index+ntraces_p,:] = traces[:,m["poi"]]
-            scalib._scalib_ext.partial_cp(
-                traces, m["poi"], m["l"][index : index + ntraces_p]
-            )
-
-            m["x"][index : index + ntraces_p] = labels[v]
-        del traces
-
-    for v in tqdm(labels_batch, desc="Profile batch %d/%d" % (b, len(split))):
-
+        
+        labels = np.array([labels[v] for v in labels_batch],dtype=np.uint16).T
+        mlda.fit_u(traces,labels)
+        del traces,labels
+    
+    mlda.solve()
+     
+    for i,v in enumerate(tqdm(labels_batch, desc="Profile batch %d/%d" % (b,
+        len(split)))):
         m = models[v]
-        l = m.pop("l")
-        x = m.pop("x")
-        m["lda"] = LDAClassifier(nc=256, ns=len(m["poi"]), p=p)
-        m["lda"].fit(l, x)
-        del l, x
+        m["lda"] = mlda.ldas[i]
 
 pickle.dump(models, open(models_file, "wb"))

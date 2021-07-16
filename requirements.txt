@@ -1,4 +1,4 @@
-scalib==0.1.1
+scalib==0.3.2
 matplotlib
 tqdm
 numpy
