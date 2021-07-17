@@ -8,7 +8,7 @@ if os.path.exists(snr_file):
     snrs = pickle.load(open(snr_file, "rb"))
 
 print(f"Welcome to report SNR for {D} shares")
-print("You will be asked to select variables for which you want to report SNR")
+print("You will be asked to select variables for which you want to plot SNR\n")
 print("Corresponds to the byte position in the 32-bit register")
 print("On plots, the colors are for different shares.")
 

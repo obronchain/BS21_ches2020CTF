@@ -9,7 +9,7 @@ npoi = 3600
 # Number of dimensions in linear subspace
 p = 14
 # target memory usage (GB), yet it may consumes a bit more.
-memory_limit = 200
+memory_limit = 80
 # datasets location (use download.py to download them)
 dataset_dir = "./traces/"
 ######################### END OF USER PARAMETERS
@@ -90,11 +90,10 @@ elif D == 8:
 memory_limit *= 1e9
 # remove size of a (int16) trace file
 memory_limit -= ns * ntraces_p * 2
-total_traces_p = ntraces_p * nfiles_profile
 
 memory_per_snr = ns * 8 * 2 * 256
 np_snr = int(np.floor(memory_limit / memory_per_snr))
-memory_per_lda = total_traces_p * 2 * npoi
-np_lda = int(np.floor((memory_limit - total_traces_p * 8 * 2 * npoi) / memory_per_lda))
+memory_per_lda = (npoi ** 2 + npoi * 256) * 8 + (ntraces_p * npoi) * 8
+np_lda = int(np.floor(memory_limit / memory_per_lda))
 memory_per_enc_graph = len(variables) * (D + 1) * 256 * 8 * 3
 batch_enc = int(np.floor(memory_limit / (memory_per_enc_graph)))

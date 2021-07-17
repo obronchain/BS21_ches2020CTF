@@ -129,10 +129,10 @@ def run_attack(attack_dir, ntraces_a, models):
             enc_graph = SASCAGraph(enc_desc, n=bs)
 
             # predict_proba for all models and insert the result in enc_graph
-            for k, m in models.items():
-                enc_graph.set_init_distribution(
-                    k,m["lda"].predict_proba(traces[start : start +bs, m["poi"]])
-                )
+            for mlda, labels in zip(models["mlda"], models["labels"]):
+                pr = mlda.predict_proba(traces[start : start + bs, :])
+                for l, p in zip(labels, pr):
+                    enc_graph.set_init_distribution(l, p)
 
             # run belief propagation
             enc_graph.run_bp(1)
@@ -197,7 +197,7 @@ def run_attack(attack_dir, ntraces_a, models):
         distris.append(distri)
     # Run rank estimation with 1-bit precison
     distris = np.array(distris)
-    rmin, r, rmax = rank_accuracy(-np.log10(distris), ks, 1.0)
+    rmin, r, rmax = rank_accuracy(-np.log10(distris), ks, 1.0, max_nb_bin=2 ** 20)
 
     print("    guess      :", " ".join(["%3x" % (x) for x in guess]))
     print("    best key   :", " ".join(["%3x" % (x) for x in ks]))

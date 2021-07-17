@@ -26,9 +26,10 @@ can be done independently (profiling is the more costly).
 System requirement
 ==================
 In order to run the project, at least a Linux systems is required with `Python
->=3.6`, `curl`, `unzip` and `gcc` installed (default on most of modern distributions).
-Since some steps of the computation can be expensive, all the outputted results
-are made available online and can be downloaded with `download.py`. 
+>=3.6`, `pip`, `curl`, `unzip` and `gcc` installed (default on most of modern
+distributions).  Since some steps of the computation can be expensive, all the
+outputted results are made available online and can be downloaded with
+`download.py`. 
 
 To run the full package (profiling and attack), we recommend to have at least
 32-GB of RAM. The user can specify the memory he wants to dedicate to it by
