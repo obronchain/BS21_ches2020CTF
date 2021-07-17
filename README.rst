@@ -58,6 +58,8 @@ describe them below:
 
 - `p`: The number of dimensions in the considered linear subspace.
 
+- `d`: (passed through command line arguments) is the number of shares within the implementation. The dataset contains implementations with 3,4,6 and 8 shares.
+
 Install
 =======
 
@@ -74,11 +76,11 @@ with the distribution package manager (e.g., apt-get, pacman, etc ...).
 
 Download Datasets
 =================
-The script `download.py` is an interactive scripts to select what dataset must
+The script `download.py` is an interactive script to select what dataset must
 be downloaded.  The user can select to download profile and/or attack dataset
 for each of the implementations.  The following example downloads both datasets
 for the 3-shares implementation. It also allows to download all the precomputed
-models and attacks results. 
+models and attacks results.
 
 .. code-block::
 
@@ -114,6 +116,9 @@ Profiling
 
 **note**: All the commands to reproduce all the profiling and attacks are in `all.sh`.
 
+Running
+~~~~~~~
+
 The profiling is done by running sequentially the three following scripts where
 `<D>` is the number of shares in the implementation to profile.
 
@@ -128,14 +133,19 @@ The profiling is done by running sequentially the three following scripts where
 `compute_snr.py` computes the SNR for each of the variables. `modeling.py`
 builds the templates.
 
+Reporting
+~~~~~~~~~
 In order display the results of profiling (SNR and PoIs), the user can start
-the interactive script `report_profiling.py`. The user will be asked the
-variables and the byte index (0,1,2 or 3) to display.
+the interactive script `report_profiling.py`. The user will first be asked the
+intermediate variables within the masked Sbox he wants to display. Second, he will be asked what byte 
+within that 32-bit variable we wants to report. He so has to choose a byte index 
+(0,1,2 or 3). The script is used by running the command:
 
 .. code-block::
    
    python3 report_profiling.py -d <D>
- 
+   
+.. image:: .figs/report_profiling.gif
 
 **warning**: Profiling is the most expensive steps. See Section 4. of the paper
 for additional details about complexities. 
