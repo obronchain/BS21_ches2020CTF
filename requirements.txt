@@ -3,4 +3,3 @@ matplotlib
 tqdm
 numpy
 requests
-tkinter

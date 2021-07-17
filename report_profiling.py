@@ -22,14 +22,14 @@ Multiple variables must be separated with a comma: """
     )
     requested_var = requested_var.replace(" ", "").split(",")
     if not all([x in variables for x in requested_var]):
-        print("One variable is not available")
-        print("Variables are: ", ", ".join(variables))
+        print("\nUser Error: One variable is not available")
+        print("Variables are: ", ", ".join(variables),"\n")
         continue
 
     # get the shift to plot
     requested_shift = input("Select a shift in [0,1,2,3]: ").replace(" ", "")
     if requested_shift not in ["0", "1", "2", "3"]:
-        print("Uncorrect shift")
+        print("\n User Error: Uncorrect shift\n")
         continue
     shift = int(requested_shift, 10)
 
@@ -38,7 +38,6 @@ Multiple variables must be separated with a comma: """
     for i, var in enumerate(requested_var):
         ax = plt.subplot(len(requested_var), 1, i + 1, sharex=ax)
         for d in range(D):
-
             v = f"{var}_{d}_{shift}"
             poi = snr_at_poi[v]["poi"]
             if not snrs is None:
