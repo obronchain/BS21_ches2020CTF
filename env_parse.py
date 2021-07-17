@@ -5,13 +5,16 @@ import os
 ########################## USER PARAMETERS
 # Templates parameters:
 # Number of POI
-npoi = 3600
+npoi_max = 1000 # max number of pois
+npoi_min = 100 # min number of pois
+npoi = npoi_max
 # Number of dimensions in linear subspace
 p = 14
 # target memory usage (GB), yet it may consumes a bit more.
-memory_limit = 80
+memory_limit = 200
 # datasets location (use download.py to download them)
-dataset_dir = "./traces/"
+#dataset_dir = "./traces/"
+dataset_dir = "/common/ctf_traces/public/"
 ######################### END OF USER PARAMETERS
 
 # Get command line arguemnets
@@ -48,6 +51,8 @@ if not os.path.exists(label_dir):
 models_file = os.path.join(data_dir, f"models_{D}.pkl")
 # files with SNR
 snr_file = os.path.join(data_dir, f"snr_{D}.pkl")
+# files with SNR only at poi
+snr_file_at_poi = os.path.join(data_dir, f"snr_{D}_at_poi.pkl")
 # file to compute the attack results
 attack_summary_file = os.path.join(data_dir, f"attack_summary_{D}.pkl")
 # prefix of profiling traces

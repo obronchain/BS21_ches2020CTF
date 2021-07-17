@@ -2,7 +2,7 @@ from env_parse import *
 import pickle
 import matplotlib.pyplot as plt
 
-models = pickle.load(open(models_file, "rb"))
+snr_at_poi = pickle.load(open(snr_file_at_poi, "rb"))
 snrs = None
 if os.path.exists(snr_file):
     snrs = pickle.load(open(snr_file, "rb"))
@@ -40,10 +40,10 @@ Multiple variables must be separated with a comma: """
         for d in range(D):
 
             v = f"{var}_{d}_{shift}"
-            poi = models[v]["poi"]
+            poi = snr_at_poi[v]["poi"]
             if not snrs is None:
                 ax.plot(snrs[v]["SNR"], alpha=0.7)
-            ax.scatter(poi, models[v]["SNR_at_poi"], alpha=0.7, marker="x")
+            ax.scatter(poi, snr_at_poi[v]["snr"], alpha=0.7, marker="x")
             ax.set_ylabel(f"{var} shift {shift}")
         plt.grid()
 
