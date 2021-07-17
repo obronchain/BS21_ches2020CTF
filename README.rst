@@ -152,6 +152,10 @@ for additional details about complexities.
 
 Attack
 ======
+
+Running
+~~~~~~~
+
 The attack can be executed by running the scripts
 
 .. code-block::
@@ -161,6 +165,11 @@ The attack can be executed by running the scripts
 where `ni` is the number of points to consider for the attack. The attacks are
 performed on each of the 5 datasets.
 
+.. image:: .figs/attack.gif
+
+Reporting
+~~~~~~~~~
+
 The results can be reported with the script `report_attack.py`. This report on
 the x-axis the number of traces in the attack and on the y-axis the full key
 rank (log2-scale). The crosses are for individual attack dataset (out of 5) and
@@ -169,6 +178,8 @@ the red curve is the median.
 .. code-block::
    
    python3 report_attack.py -d <D>
+
+.. image:: .figs/d3.png
 
 Contact
 =======
