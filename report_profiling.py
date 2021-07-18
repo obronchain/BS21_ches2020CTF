@@ -19,6 +19,7 @@ requested_var = input(
     """\nPlease select a variable to report. 
 Multiple variables must be separated with a comma: """
 )
+
 requested_var = requested_var.replace(" ", "").split(",")
 if not all([x in variables for x in requested_var]):
     print("One variable is not available")
@@ -26,9 +27,9 @@ if not all([x in variables for x in requested_var]):
     exit()
 
 # get the shift to plot
-requested_shift = input("Select a shift in [0,1,2,3]: ").replace(" ", "")
+requested_shift = input("Select a byte in [0,1,2,3]: ").replace(" ", "")
 if requested_shift not in ["0", "1", "2", "3"]:
-    print("Uncorrect shift")
+    print("Uncorrect byte")
     exit()
 shift = int(requested_shift, 10)
 
