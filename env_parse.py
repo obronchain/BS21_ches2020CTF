@@ -5,16 +5,15 @@ import os
 ########################## USER PARAMETERS
 # Templates parameters:
 # Number of POI
-npoi_max = 1000 # max number of pois
-npoi_min = 100 # min number of pois
+npoi_max = 3600 # max number of pois
+npoi_min = 3600 # min number of pois
 npoi = npoi_max
 # Number of dimensions in linear subspace
-p = 14
+p = 8
 # target memory usage (GB), yet it may consumes a bit more.
 memory_limit = 200
 # datasets location (use download.py to download them)
-#dataset_dir = "./traces/"
-dataset_dir = "/common/ctf_traces/public/"
+dataset_dir = "./traces/"
 ######################### END OF USER PARAMETERS
 
 # Get command line arguemnets
@@ -98,7 +97,5 @@ memory_limit -= ns * ntraces_p * 2
 
 memory_per_snr = ns * 8 * 2 * 256
 np_snr = int(np.floor(memory_limit / memory_per_snr))
-memory_per_lda = (npoi ** 2 + npoi * 256) * 8 + (ntraces_p * npoi) * 8
-np_lda = int(np.floor(memory_limit / memory_per_lda))
 memory_per_enc_graph = len(variables) * (D + 1) * 256 * 8 * 3
 batch_enc = int(np.floor(memory_limit / (memory_per_enc_graph)))

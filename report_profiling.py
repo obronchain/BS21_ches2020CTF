@@ -14,37 +14,36 @@ print("On plots, the colors are for different shares.")
 
 print("\nVariables are: ", ", ".join(variables))
 
-while True:
-    # get variables to plot
-    requested_var = input(
-        """\nPlease select a variable to report. 
+# get variables to plot
+requested_var = input(
+    """\nPlease select a variable to report. 
 Multiple variables must be separated with a comma: """
-    )
-    requested_var = requested_var.replace(" ", "").split(",")
-    if not all([x in variables for x in requested_var]):
-        print("One variable is not available")
-        print("Variables are: ", ", ".join(variables))
-        continue
+)
+requested_var = requested_var.replace(" ", "").split(",")
+if not all([x in variables for x in requested_var]):
+    print("One variable is not available")
+    print("Variables are: ", ", ".join(variables))
+    exit()
 
-    # get the shift to plot
-    requested_shift = input("Select a shift in [0,1,2,3]: ").replace(" ", "")
-    if requested_shift not in ["0", "1", "2", "3"]:
-        print("Uncorrect shift")
-        continue
-    shift = int(requested_shift, 10)
+# get the shift to plot
+requested_shift = input("Select a shift in [0,1,2,3]: ").replace(" ", "")
+if requested_shift not in ["0", "1", "2", "3"]:
+    print("Uncorrect shift")
+    exit()
+shift = int(requested_shift, 10)
 
-    plt.figure()
-    ax = None
-    for i, var in enumerate(requested_var):
-        ax = plt.subplot(len(requested_var), 1, i + 1, sharex=ax)
-        for d in range(D):
+plt.figure()
+ax = None
+for i, var in enumerate(requested_var):
+    ax = plt.subplot(len(requested_var), 1, i + 1, sharex=ax)
+    for d in range(D):
 
-            v = f"{var}_{d}_{shift}"
-            poi = snr_at_poi[v]["poi"]
-            if not snrs is None:
-                ax.plot(snrs[v]["SNR"], alpha=0.7)
-            ax.scatter(poi, snr_at_poi[v]["snr"], alpha=0.7, marker="x")
-            ax.set_ylabel(f"{var} shift {shift}")
-        plt.grid()
+        v = f"{var}_{d}_{shift}"
+        poi = snr_at_poi[v]["poi"]
+        if not snrs is None:
+            ax.plot(snrs[v]["SNR"], alpha=0.7)
+        ax.scatter(poi, snr_at_poi[v]["snr"], alpha=0.7, marker="x")
+        ax.set_ylabel(f"{var} shift {shift}")
+    plt.grid()
 
-    plt.show(block=False)
+plt.show()
