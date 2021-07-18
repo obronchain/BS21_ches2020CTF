@@ -5,11 +5,13 @@ import os
 ########################## USER PARAMETERS
 # Templates parameters:
 # Number of POI
-npoi = 3600
+npoi_max = 3600  # max number of pois
+npoi_min = 3600  # min number of pois
+npoi = npoi_max
 # Number of dimensions in linear subspace
-p = 14
+p = 8
 # target memory usage (GB), yet it may consumes a bit more.
-memory_limit = 80
+memory_limit = 200
 # datasets location (use download.py to download them)
 dataset_dir = "./traces/"
 ######################### END OF USER PARAMETERS
@@ -48,6 +50,8 @@ if not os.path.exists(label_dir):
 models_file = os.path.join(data_dir, f"models_{D}.pkl")
 # files with SNR
 snr_file = os.path.join(data_dir, f"snr_{D}.pkl")
+# files with SNR only at poi
+snr_file_at_poi = os.path.join(data_dir, f"snr_{D}_at_poi.pkl")
 # file to compute the attack results
 attack_summary_file = os.path.join(data_dir, f"attack_summary_{D}.pkl")
 # prefix of profiling traces
@@ -90,11 +94,8 @@ elif D == 8:
 memory_limit *= 1e9
 # remove size of a (int16) trace file
 memory_limit -= ns * ntraces_p * 2
-total_traces_p = ntraces_p * nfiles_profile
 
 memory_per_snr = ns * 8 * 2 * 256
 np_snr = int(np.floor(memory_limit / memory_per_snr))
-memory_per_lda = total_traces_p * 2 * npoi
-np_lda = int(np.floor((memory_limit - total_traces_p * 8 * 2 * npoi) / memory_per_lda))
 memory_per_enc_graph = len(variables) * (D + 1) * 256 * 8 * 3
 batch_enc = int(np.floor(memory_limit / (memory_per_enc_graph)))

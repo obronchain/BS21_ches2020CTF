@@ -79,6 +79,7 @@ def gen_profile_dataset():
             fname = f"rkey_sw{d}_10000_{i}.npz"
             files.append(f"{dir_server}/{fname}")
 
+
 def gen_models():
     global tsize
     ret = input(
@@ -88,9 +89,10 @@ def gen_models():
     if ret != "y":
         print("Skipping")
         return False
-    
-    tsize += .5
+
+    tsize += 0.5
     return True
+
 
 def download_models():
     if os.path.exists("models.zip"):
@@ -99,12 +101,15 @@ def download_models():
         os.system(f"wget {URL_MODEL}")
 
     os.system("unzip models.zip")
-    for d in [3,4,6,8]:
-        if not os.path.exists(f"data_{d}"): os.makedirs(f"data_{d}/")
+    for d in [3, 4, 6, 8]:
+        if not os.path.exists(f"data_{d}"):
+            os.makedirs(f"data_{d}/")
         os.system(f"cp models/data_{d}/*.pkl ./data_{d}/")
     os.system("rm models -r")
+
+
 if __name__ == "__main__":
-    print("Confirm what you want to download. You can edit to top of this file.\n")
+    print("Confirm what you want to download.\n")
     gen_profile_dataset()
     print("\n")
     gen_attack_dataset()
