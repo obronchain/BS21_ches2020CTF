@@ -199,11 +199,12 @@ def run_attack(attack_dir, ntraces_a, models):
     distris = np.array(distris)
     rmin, r, rmax = rank_accuracy(-np.log10(distris), ks, 1.0, max_nb_bin=2 ** 20)
 
-    print("    guess      :", " ".join(["%3x" % (x) for x in guess]))
-    print("    best key   :", " ".join(["%3x" % (x) for x in ks]))
+    print(f"\nAttack results with {ntraces_a} traces:")
+    print("    correct key:", " ".join(["%3x" % (x) for x in ks]))
+    print("    key guess  :", " ".join(["%3x" % (x) for x in guess]))
     print("    rank       :", " ".join(["%3d" % (x) for x in rank]))
-    print("    key rank : %f < %f < %f" % (np.log2(rmin), np.log2(r), np.log2(rmax)))
-
+    print("    key rank   : %f < %f < %f" % (np.log2(rmin), np.log2(r), np.log2(rmax)))
+    print("\n")
     del umsk_graph
     return rmin, r, rmax
 
