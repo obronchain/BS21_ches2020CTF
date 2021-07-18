@@ -109,7 +109,7 @@ def download_models():
 
 
 if __name__ == "__main__":
-    print("Confirm what you want to download. You can edit to top of this file.\n")
+    print("Confirm what you want to download.\n")
     gen_profile_dataset()
     print("\n")
     gen_attack_dataset()

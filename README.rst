@@ -3,22 +3,27 @@ BS20 CHES2020 CTF Attack
 
 This repository contains the attack by `Bronchain and Standaert` against the
 CHES2020 CTF software targets. It leverages `Soft Analytical Side-Channel
-Attacks` and is using its implementation in `SCALib` (version 0.1.1). It allows to break all
-the software implementations protected with 3,4,6 and 8 shares. 
+Attacks` and is using its implementation in `SCALib` (version 0.3.3). It allows
+to break all the masked software implementations of `Spook` protected with 3,4,6
+and 8 shares. 
 
 This is an artifact of the research paper `Breaking Masked Implementations with
 Many Shares on 32-bit Software Platforms or When the Security Order Does Not
 Matter` published in TCHES 2021, Issue 3. 
 
+**Important**: We stress that this repository is a support to the research paper made
+to reproduce the results. We therefore assume that the user has read the
+research paper. 
+
 Overview
 ========
-This project goes in three steps:
+In order to mount the attack against a given implementation, two steps must be
+followed (see Section 4 of the paper). 
 
-1. **Profile**: Which consists in first derived the values of each intermediate
-   variable, computing `SNR` and build a template for each of them.
+1. **Profile**: Which consists in deriving a Gaussian template for each of the
+   shares within the masked Sbox.
 2. **Attack**: Which consists in recovering the secret keys by leveraging `Soft
    Analytical Side-Channel Attacks (SASCA)`.
-3. **Report**: Which consists in plotting the profiling and attack results.
 
 Since the output of profiling and attacks are made available online, each step
 can be done independently (profiling is the more costly).
@@ -26,9 +31,9 @@ can be done independently (profiling is the more costly).
 System requirement
 ==================
 In order to run the project, at least a Linux systems is required with `Python
->=3.6`, `pip`, `curl`, `unzip` and `gcc` installed (default on most of modern
-distributions).  Since some steps of the computation can be expensive, all the
-outputted results are made available online and can be downloaded with
+>=3.6`, `pip`, `curl`, `unzip`, `wget` and `gcc` installed (default on most of
+modern distributions).  Since some steps of the computation can be expensive,
+all the outputted results are made available online and can be downloaded with
 `download.py`. 
 
 To run the full package (profiling and attack), we recommend to have at least
@@ -41,6 +46,19 @@ To run profiling and/or attacks, traces must be downloaded from the CHES2020
 CTF website and stored on the disk (with `download.py`). For the simplest
 target (3-shares), it represents about 36 GB of data. We note that the user is
 not forced to download all the dataset. See the next section for more details. 
+
+Install
+=======
+
+All the Python dependencies are available on `PyPi` and can be installed with:
+
+.. code-block:: 
+
+   pip install -r requirements.txt
+
+We note that the user can install these dependencies in a `virtualenv`.  Both
+`curl`, `unzip`, `wget` and `gcc` must be installed on the system. This can be
+done with the distribution package manager (e.g., apt-get, pacman, etc ...). 
 
 Parameters
 ==========
@@ -55,24 +73,14 @@ describe them below:
   system, make `dataset_dir` pointing to their location.
 
 - `npoi`: The number of dimensions in the traces taken to build the templates.
+  It is set to `3600`.
 
-- `p`: The number of dimensions in the considered linear subspace.
+- `p`: The number of dimensions in the considered linear subspace. It is set to
+  8.
 
-- `d`: (passed through command line arguments) is the number of shares within the implementation. The dataset contains implementations with 3,4,6 and 8 shares.
-
-Install
-=======
-
-All the Python dependencies are available on `PyPi` and can be installed with:
-
-.. code-block:: 
-
-   pip install -r requirements.txt
-
-We note that the user can install these dependencies in a `virtualenv`.  Both
-`curl`, `unzip` and `gcc` must be installed on the system. This can be done
-with the distribution package manager (e.g., apt-get, pacman, etc ...). 
-
+- `d`: (passed through command line arguments) is the number of shares within
+  the implementation. The dataset contains implementations with 3,4,6 and 8
+  shares.
 
 Download Datasets
 =================
@@ -128,18 +136,20 @@ The profiling is done by running sequentially the three following scripts where
    python3 compute_snr.py -d <D> 
    python3 modeling.py -d <D>
 
-`gen_labels.py` derives the values for each of the intermediate variables
-(share) by using the implementation sources (with additional MACRO).
-`compute_snr.py` computes the SNR for each of the variables. `modeling.py`
-builds the templates.
+`gen_labels.py` derives the values for each of the shares within the masked Sbox
+by using the implementation sources (with additional MACRO).
+`compute_snr.py` computes the SNR for each of the shares within the masked Sbox.
+`modeling.py` builds a template for each of shares by using `LDAClassifier` in
+SCALib.
 
 Reporting
 ~~~~~~~~~
-In order display the results of profiling (SNR and PoIs), the user can start
-the interactive script `report_profiling.py`. The user will first be asked the
-intermediate variables within the masked Sbox he wants to display. Second, he will be asked what byte 
-within that 32-bit variable we wants to report. He so has to choose a byte index 
-(0,1,2 or 3). The script is used by running the command:
+In order display the results of profiling (SNR and PoIs), the user can start the
+interactive script `report_profiling.py`. The user will first be asked the
+intermediate variables within the masked Sbox he wants to display. Second, he
+will be asked what byte within that 32-bit variable we wants to report. He so
+has to choose a byte index (0,1,2 or 3). The script is used by running the
+command:
 
 .. code-block::
    
@@ -163,7 +173,10 @@ The attack can be executed by running the scripts
    python3 attack.py -d <D> -n <n1,n2,n3,..>
 
 where `ni` is the number of points to consider for the attack. The attacks are
-performed on each of the 5 datasets.
+performed on each of the 5 datasets. For each attacks, the scripts displays the
+correct key, the key guess with highest probability and the correct key rank
+(which corresponds to the enumeration power needed by the evalutor to recover
+the key). 
 
 .. image:: .figs/attack.gif
 
@@ -173,7 +186,8 @@ Reporting
 The results can be reported with the script `report_attack.py`. This report on
 the x-axis the number of traces in the attack and on the y-axis the full key
 rank (log2-scale). The crosses are for individual attack dataset (out of 5) and
-the red curve is the median.
+the red curve is the median. This curves corresponds to Figure 8 in the research
+paper.
 
 .. code-block::
    
