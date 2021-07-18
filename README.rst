@@ -2,14 +2,14 @@ BS20 CHES2020 CTF Attack
 ========================
 
 This repository contains the attack by `Bronchain and Standaert` against the
-CHES2020 CTF software targets. It leverages `Soft Analytical Side-Channel
-Attacks` and is using its implementation in `SCALib` (version 0.3.3). It allows
+`CHES2020 CTF <https://ctf.spook.dev/>`_ software targets. It leverages `Soft Analytical Side-Channel
+Attacks <https://eprint.iacr.org/2014/410>`_ and is using its implementation in `SCALib <https://github.com/simple-crypto/SCALib>`_ (version 0.3.3). It allows
 to break all the masked software implementations of `Spook` protected with 3,4,6
 and 8 shares. 
 
 This is an artifact of the research paper `Breaking Masked Implementations with
 Many Shares on 32-bit Software Platforms or When the Security Order Does Not
-Matter` published in TCHES 2021, Issue 3. 
+Matter <https://tches.iacr.org/index.php/TCHES/article/view/8973>`_ published in TCHES 2021, Issue 3. 
 
 **Important**: We stress that this repository is a support to the research paper made
 to reproduce the results. We therefore assume that the user has read the
