@@ -134,12 +134,12 @@ The profiling is done by running sequentially the three following scripts where
    
    python3 gen_labels.py -d <D> 
    python3 compute_snr.py -d <D> 
-   python3 modeling.py -d <D>
+   python3 gen_templates.py -d <D>
 
 `gen_labels.py` derives the values for each of the shares within the masked Sbox
 by using the implementation sources (with additional MACRO).
 `compute_snr.py` computes the SNR for each of the shares within the masked Sbox.
-`modeling.py` builds a template for each of shares by using `LDAClassifier` in
+`gen_templates.py` builds a template for each of shares by using `LDAClassifier` in
 SCALib.
 
 Reporting
