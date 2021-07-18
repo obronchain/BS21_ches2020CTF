@@ -5,8 +5,8 @@ import os
 ########################## USER PARAMETERS
 # Templates parameters:
 # Number of POI
-npoi_max = 3600 # max number of pois
-npoi_min = 3600 # min number of pois
+npoi_max = 3600  # max number of pois
+npoi_min = 3600  # min number of pois
 npoi = npoi_max
 # Number of dimensions in linear subspace
 p = 8

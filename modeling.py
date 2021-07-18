@@ -8,13 +8,13 @@ print(f"Start modeling for {D}-shares")
 # load models containing "SNR" field
 models = pickle.load(open(snr_file, "rb"))
 
-memory_usage = 0 
+memory_usage = 0
 snr_at_poi = {}
 # Compute pois
-for v,m in models.items():
+for v, m in models.items():
     # to avoid NaN if scope overshoot
     np.nan_to_num(m["SNR"])
-    I = np.where(m["SNR"]>0.002)[0]
+    I = np.where(m["SNR"] > 0.002)[0]
     if len(I) < npoi_min:
         poi = np.argsort(m["SNR"])[-npoi_min:].astype(np.uint32)
     elif len(I) > npoi_max:
@@ -25,12 +25,12 @@ for v,m in models.items():
 
     # take the npoi with largest SNR values
     poi = np.sort(poi)
-    snr_at_poi[v] = {"poi":poi,"snr":m["SNR"][poi]}
+    snr_at_poi[v] = {"poi": poi, "snr": m["SNR"][poi]}
 
     memory_usage += (npoi ** 2 + npoi * 256) * 8 + (ntraces_p * npoi) * 8
 
 n_split = np.ceil(memory_usage / memory_limit)
-np_lda = int(np.floor(len(models)/n_split))
+np_lda = int(np.floor(len(models) / n_split))
 pickle.dump(snr_at_poi, open(snr_file_at_poi, "wb"))
 
 # File for profiling
